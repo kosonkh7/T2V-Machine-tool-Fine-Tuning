@@ -1,17 +1,18 @@
 # Text-to-Video 모델을 활용한 공작기계 매뉴얼 영상 생성 연구
-Fine-Tuning AnimateDiff framework(Text-To-Video) to optimize it for machine tool domain
-
 ## Overview
-목적: 
-T2V 모델을 공작기계 도메인에 최적화하여, 작업 지시 텍스트를 입력받아 해당 작업을 수행하는 가이드라인 영상을 생성하는 Text-to-video 시스템을 개발
+**목적:** <br>
+T2V 모델을 공작기계 도메인에 최적화하여, <br>
+작업 지시 텍스트를 입력받아 해당 작업을 수행하는 가이드라인 영상을 생성하는 Text-to-video 시스템을 개발<br>
 
-목표:
+**목표:**
 1. 명확한 공작기계 이미지를 학습하기 위하여 이미지 도메인에서 Fine-Tuning 수행
-2. 공정 과정(밀링, 터닝)의 움직임을 학습시키기 위하여 영상 도메인에서 Fine-Tuning 수행
+2. 공정 과정(밀링, 터닝)의 움직임을 학습시키기 위하여 영상 도메인에서 Fine-Tuning 수행<br>
+
 사전 학습된 모델에 공작기계 데이터를 학습한 LoRA 파일을 적용하는 방식으로 Fine-Tuning.
 
 ## Business Understanding
-1. 생성 인공지능 기술 동향
+### 생성 인공지능 기술 동향
+
 언어 모델인 GPT-4, 이미지 생성 모델인 Stable Diffusion, 그리고 동영상 생성 모델인 구글 LUMIERE 등 다양한 분야에서 혁신적인 성과 보임.
 
 특히 OpenAI에서 공개한 영상 생성 AI 모델 'Sora'는, 이전에 공개된 다른 모델들에 비해 압도적인 퀄리티의 영상을 선보이며
@@ -22,8 +23,8 @@ T2V 모델을 공작기계 도메인에 최적화하여, 작업 지시 텍스트
 
 ![wZvgUjoXojFGK7AJvMq6T7](https://github.com/kosonkh7/T2V-Machine-tool-Fine-Tuning/assets/83086978/d952c6d9-5812-4b8e-880b-8db87e9e5f68)
 
+### 공작기계 도메인
 
-2. 공작기계 도메인
 공작기계(Machine Tool)란, 기계를 만드는 기계(Mother Machine)이다.
 
 산업 현장에서 작업자들의 고령화와 외국인 인력 비중 증가하는 추세이며, 
@@ -32,8 +33,9 @@ T2V 모델을 공작기계 도메인에 최적화하여, 작업 지시 텍스트
 
 알고자 하는 매뉴얼 내용을 동영상으로 바로 제시하여 편의를 제공하는 것이 프로젝트 목적이다.
 
-3. 밀링, 터닝
-밀링 공정: 공작물이 고정된 상태에서 절삭 공구가 여러 축을 따라 이동하며 고속으로 회전한다.
+### 밀링, 터닝
+
+밀링 공정: 공작물이 고정된 상태에서 절삭 공구가 여러 축을 따라 이동하며 고속으로 회전한다.<br>
 터닝 공정: 절삭 공구가 고정되어 있고 스핀들이 공작물을 회전시킨다.
 
 
@@ -51,27 +53,29 @@ Latent Diffusion model(LDM)이라고도 불리며, 고해상도 이미지를 잠
 ### Low-rank adaptation (LoRA)
 ![image](https://github.com/kosonkh7/T2V-Machine-tool-Fine-Tuning/assets/83086978/b76c0f6d-84d0-4cb3-97d2-2f7f16769d70)
 
-LoRA는 Large Language Model(LLM)을 비용 효율적으로 최적화하기 위해 제안된 방법론이다. 
-LoRA는 주로 Attention layer에 적용되며, layer에 Rank-Decomposition matrix를 더해주는데, 이는 사전 학습된 모델의 가중치는 고정한 채로 Residual만 Fine-Tuning하여 더해주는 것을 의미한다. 
-따라서 전체 모델 가중치를 다시 학습하는 것보다 연산량과 연산 시간을 절감하여 Fine-Tuning 할 수 있다.
+LoRA는 Large Language Model(LLM)을 비용 효율적으로 최적화하기 위해 제안된 방법론이다. <br>
+LoRA는 주로 Attention layer에 적용되며, layer에 Rank-Decomposition matrix를 더해주는데, 이는 사전 학습된 모델의 가중치는 고정한 채로 Residual만 Fine-Tuning하여 더해주는 것을 의미한다. <br>
+따라서 전체 모델 가중치를 다시 학습하는 것보다 연산량과 연산 시간을 절감하여 Fine-Tuning 할 수 있다.<br>
 
 ### AnimateDiff
 AnimateDiff는 사전 학습된 T2I 모델에 motion module을 적용하여 영상을 생성할 수 있는 Text-to-Video(T2V) 프레임워크이다. 학습 과정에 대해 간략하게 설명하면 다음과 같다.
 ![image](https://github.com/kosonkh7/T2V-Machine-tool-Fine-Tuning/assets/83086978/355ba493-c2cb-4b97-bcee-8dc028271683)
 
-1. Domain Adapter: 일반적으로 이미지 데이터에 비해 영상 데이터의 품질이 떨어지기 때문에, Domain Adapter를 적용하여 T2I 모델의 사전 학습 이미지 데이터와, 영상 학습 데이터 간의 시각적 특징 차이로 인해 발생할 수 있는 부정적인 영향을 완화한다. domain adapter는 T2I의 Cross-Attention layer에 적용된다. 
+1. Domain Adapter: 일반적으로 이미지 데이터에 비해 영상 데이터의 품질이 떨어지기 때문에, Domain Adapter를 적용하여 T2I 모델의 사전 학습 이미지 데이터와, 영상 학습 데이터 간의 시각적 특징 차이로 인해 발생할 수 있는 부정적인 영향을 완화한다. domain adapter는 T2I의 Cross-Attention layer에 적용된다. <br>
  ![image](https://github.com/kosonkh7/T2V-Machine-tool-Fine-Tuning/assets/83086978/03d47f95-94f4-4c21-9ece-c85fa3c511c6)
 
-2. Network Inflation: 사전학습된 이미지 레이어의 구조를 5D video tensor로 변환하여 영상의 시간 정보를 담을 수 있도록 수정한다.
-3. Motion Module Design: 움직임을 학습하기 위해 temporal Transformer를 사용한다. sinusoidal position encoding을 통해 영상에서 각 프레임의 위치를 인코딩한 뒤, 시간 축을 따라 여러 개의 Self-Attention 연산을 수행하며 움직임을 학습한다.
+2. Network Inflation: 사전학습된 이미지 레이어의 구조를 5D video tensor로 변환하여 영상의 시간 정보를 담을 수 있도록 수정한다.<br>
+3. Motion Module Design: 움직임을 학습하기 위해 temporal Transformer를 사용한다. sinusoidal position encoding을 통해 영상에서 각 프레임의 위치를 인코딩한 뒤, 시간 축을 따라 여러 개의 Self-Attention 연산을 수행하며 움직임을 학습한다.<br>
 
 
 ## Modeling and Evaluation
 ![image](https://github.com/kosonkh7/T2V-Machine-tool-Fine-Tuning/assets/83086978/b9a64368-f671-4a1b-8b17-de5ac8fdf74f)
 
-본 프로젝트에서 T2V 모델을 공작기계 도메인에 최적화하기 위하여, 
+본 프로젝트에서 T2V 모델을 공작기계 도메인에 최적화하기 위하여, <br>
 
-명확한 공작기계 이미지를 학습하기 위한 T2I 모델 Fine-Tuning과, 공작 기계의 움직임을 학습시키기 위한 Motion Module Fine-Tuning 각각 수행함으로써 보다 분명한 영상 가이드를 생성하는 것을 목표로 하였다.
+명확한 공작기계 이미지를 학습하기 위한 T2I 모델 Fine-Tuning과, <br>
+
+공작 기계의 움직임을 학습시키기 위한 Motion Module Fine-Tuning 각각 수행함으로써 보다 분명한 영상 가이드를 생성하는 것을 목표로 하였다.
 
 ### 1. T2I 모델 Fine-Tuning
 ![image](https://github.com/kosonkh7/T2V-Machine-tool-Fine-Tuning/assets/83086978/0f9ecddf-1971-4b29-91d5-2ccef8131e90)
@@ -87,15 +91,22 @@ AnimateDiff는 사전 학습된 T2I 모델에 motion module을 적용하여 영�
 
 ## Conclusion
 
-![밀링 결과 영상](https://github.com/kosonkh7/T2V-Machine-tool-Fine-Tuning/assets/83086978/381717fe-d4c6-4258-bd0b-953913e674ad)
+<a href="https://github.com/kosonkh7/T2V-Machine-tool-Fine-Tuning/assets/83086978/381717fe-d4c6-4258-bd0b-953913e674ad">
+    <img src="https://github.com/kosonkh7/T2V-Machine-tool-Fine-Tuning/assets/83086978/381717fe-d4c6-4258-bd0b-953913e674ad" alt="밀링 결과 영상" width="400" height="400">
+</a>
 
-![터닝 결과 영상](https://github.com/kosonkh7/T2V-Machine-tool-Fine-Tuning/assets/83086978/4d9839f5-f955-40f8-a5af-24fce3012004)
+<a href="https://github.com/kosonkh7/T2V-Machine-tool-Fine-Tuning/assets/83086978/4d9839f5-f955-40f8-a5af-24fce3012004">
+    <img src="https://github.com/kosonkh7/T2V-Machine-tool-Fine-Tuning/assets/83086978/4d9839f5-f955-40f8-a5af-24fce3012004" alt="터닝 결과 영상" width="400" height="400">
+</a>
 
-본 프로젝트는 AnimateDiff 프레임워크를 Fine-Tuning하여 Milling 공정과 Turning 공정을 텍스트로부터 성공적으로 구현.
 
-이는 공작기계의 가장 핵심적인 공정들을 먼저 다룬 것으로, 다양한 공정 영상 학습을 통해 현재 공작기계 산업을 이끄는 머시닝 센터(복합가공기)의 모든 공정을 반영하는 모델 개발 가능 할 것이다.
+밀링 공정 생성 영상 결과물 (좌), 밀링 공정 생성 영상 결과물 (우) 
 
-현재 공작기계 산업을 이끄는 DN솔루션즈, 한화정밀기계 등, 국내 다양한 기업과의 협업을 통해, 특정 기계의 영상과 이미지 데이터 학습한다면 더 좋은 결과를 얻을 것으로 기대한다.
+본 프로젝트는 AnimateDiff 프레임워크를 Fine-Tuning하여 Milling 공정과 Turning 공정을 텍스트로부터 성공적으로 구현.<br>
+
+이는 공작기계의 가장 핵심적인 공정들을 먼저 다룬 것으로, 다양한 공정 영상 학습을 통해 현재 공작기계 산업을 이끄는 머시닝 센터(복합가공기)의 모든 공정을 반영하는 모델 개발 가능 할 것이다.<br>
+
+현재 공작기계 산업을 이끄는 DN솔루션즈, 한화정밀기계 등, 국내 다양한 기업과의 협업을 통해, 특정 기계의 영상과 이미지 데이터 학습한다면 더 좋은 결과를 얻을 것으로 기대한다.<br>
 
 
 ## Reference
