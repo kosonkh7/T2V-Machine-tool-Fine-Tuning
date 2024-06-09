@@ -20,6 +20,9 @@ T2V 모델을 공작기계 도메인에 최적화하여, 작업 지시 텍스트
 
 공개된 기술 블로그에 따르면, Sora 는 Vision Transformer(ViT), Diffusion Transformer(DiT) 등의 구조를 적용함으로써 영상 퀄리티를 크게 향상시킨 것으로 예상할 수 있다.
 
+![wZvgUjoXojFGK7AJvMq6T7](https://github.com/kosonkh7/T2V-Machine-tool-Fine-Tuning/assets/83086978/d952c6d9-5812-4b8e-880b-8db87e9e5f68)
+
+
 2. 공작기계 도메인
 공작기계(Machine Tool)란, 기계를 만드는 기계(Mother Machine)이다.
 
@@ -33,6 +36,7 @@ T2V 모델을 공작기계 도메인에 최적화하여, 작업 지시 텍스트
 
 
 ## Data Understanding
+
 
 ## Modeling and Evaluation
 
