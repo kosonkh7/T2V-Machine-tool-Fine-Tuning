@@ -75,7 +75,7 @@ AnimateDiff는 사전 학습된 T2I 모델에 motion module을 적용하여 영�
 
 명확한 공작기계 이미지를 학습하기 위한 T2I 모델 Fine-Tuning과, <br>
 
-공작 기계의 움직임을 학습시키기 위한 Motion Module Fine-Tuning 각각 수행함으로써 보다 분명한 영상 가이드를 생성하는 것을 목표로 하였다.
+공작 기계의 움직임을 학습시키기 위한 Motion Module Fine-Tuning 각각 수행함으로써 보다 분명한 영상 가이드를 생성하는 것을 목표한다.
 
 ### 1. T2I 모델 Fine-Tuning
 ![image](https://github.com/kosonkh7/T2V-Machine-tool-Fine-Tuning/assets/83086978/0f9ecddf-1971-4b29-91d5-2ccef8131e90)
@@ -110,3 +110,10 @@ AnimateDiff는 사전 학습된 T2I 모델에 motion module을 적용하여 영�
 
 
 ## Reference
+
+[Sora](https://openai.com/index/video-generation-models-as-world-simulators/)<br>
+[Stable Diffusion](https://arxiv.org/abs/2112.10752)<br>
+[LoRA](https://arxiv.org/abs/2106.09685)<br>
+[AnimateDiff](https://arxiv.org/abs/2307.04725)<br>
+[MotionDirector](https://arxiv.org/abs/2310.08465)<br>
+[AnimateDiff-MotionDirector](https://github.com/ExponentialML/AnimateDiff-MotionDirector)<br>
