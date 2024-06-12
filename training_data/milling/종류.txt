@@ -1,0 +1,3 @@
+Process Type: Milling(face milling, slot milling, side milling, drilling)
+Perspective: Diagonal, from the side, Zoomed in, Start From the side and later Zoomed in
+		Diagonal From Above, Diagonal Direction
