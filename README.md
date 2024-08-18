@@ -1,4 +1,4 @@
-# Text-to-Video 모델을 활용한 공작기계 매뉴얼 영상 생성 연구
+# Optimization of Pre-trained Text2Video Model for Machine Tool Manual Video Generation
 ## Overview
 **목적:** <br>
 작업 지시 텍스트를 입력받아 해당 공정 과정을 영상으로 제시하는 공작기계 도메인에 최적화된 Text-to-video 시스템 개발<br>
