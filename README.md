@@ -1,7 +1,8 @@
 # Optimization of Pre-trained Text2Video Model for Machine Tool Manual Video Generation
 ## Overview
 **목적:** <br>
-작업 지시 텍스트를 입력받아 해당 공정 과정을 영상으로 제시하는 공작기계 도메인에 최적화된 Text-to-video 시스템 개발<br>
+특정 공정 과정에 해당하는 작업 지시 텍스트를 입력하면, 영상으로 보기 편리하게 제시하는 <br>
+공작기계 도메인에 최적화된 Text-to-video 시스템 개발<br>
 
 **목표:**
 1. 명확한 공작기계 이미지를 학습하기 위하여 **이미지 도메인에서 Fine-Tuning 수행**
